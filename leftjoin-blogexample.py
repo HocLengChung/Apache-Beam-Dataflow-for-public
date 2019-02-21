@@ -5,12 +5,14 @@ class LeftJoin(beam.PTransform):
     """This PTransform performs a left join given source_pipeline_name, source_data,
      join_pipeline_name, join_data, common_key constructors"""
 
-def __init__(self, source_pipeline_name, source_data, join_pipeline_name, join_data,  \common_key):
+
+def __init__(self, source_pipeline_name, source_data, join_pipeline_name, join_data, common_key):
     self.join_pipeline_name = join_pipeline_name
     self.source_data = source_data
     self.source_pipeline_name = source_pipeline_name
     self.join_data = join_data
     self.common_key = common_key
+
 
 def expand(self, pcolls):
     def _format_as_common_key_tuple(data_dict, common_key):
@@ -25,6 +27,7 @@ def expand(self, pcolls):
                                                self.source_pipeline_name,
                                                self.join_pipeline_name)
             )
+
 
 class UnnestCoGrouped(beam.DoFn):
     """This DoFn class unnests the CogroupBykey output and emits """
